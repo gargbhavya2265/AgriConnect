@@ -15,6 +15,21 @@ import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 
+const getImageUrl = (imageUrl) => {
+  if (!imageUrl) return '';
+  const backendOrigin = new URL(api.defaults.baseURL).origin;
+  if (/^https?:\/\/localhost:\d+/i.test(imageUrl)) {
+    return imageUrl.replace(
+      /^https?:\/\/localhost:\d+/i,
+      backendOrigin
+    );
+  }
+  if (imageUrl.startsWith('/uploads/')) {
+    return `${backendOrigin}${imageUrl}`;
+  }
+  return imageUrl;
+};
+
 const empty = {
   cropName: '',
   quantity: '',
@@ -364,7 +379,7 @@ function ListingCard({ item, user, onView }) {
 
       {item.imageUrl ? (
         <img
-          src={item.imageUrl}
+          src={getImageUrl(item.imageUrl)}
           alt={item.cropName}
           className="h-44 w-full object-cover"
         />
@@ -489,7 +504,7 @@ function OfferModal({
 
       {item.imageUrl && (
         <img
-          src={item.imageUrl}
+          src={getImageUrl(item.imageUrl)}
           alt={item.cropName}
           className="mb-5 h-48 w-full rounded-xl object-cover"
         />
