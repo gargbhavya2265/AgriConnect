@@ -378,7 +378,7 @@ function ListingCard({ item, user, onView }) {
     <article className="overflow-hidden rounded-2xl border bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
 
       {item.imageUrl ? (
-        <img
+        <img crossOrigin="anonymous"
           src={getImageUrl(item.imageUrl)}
           alt={item.cropName}
           className="h-44 w-full object-cover"
@@ -503,7 +503,7 @@ function OfferModal({
     >
 
       {item.imageUrl && (
-        <img
+        <img crossOrigin="anonymous"
           src={getImageUrl(item.imageUrl)}
           alt={item.cropName}
           className="mb-5 h-48 w-full rounded-xl object-cover"
